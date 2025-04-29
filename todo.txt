@@ -1,0 +1,9 @@
+1. Npc se movimentando pela vila.
+2. Criar colisões com areas que não posso ir (aclive, declive, agua).
+3. Criar interior da casa do jogador.
+4. Criar interior da loja de equipamentos.
+5. Criar aviso com o nome da vila na placa.
+6. Criar dialogo com npc que esta andando pela vila.
+7. Criar dialogo com npc da loja de equipamentos.
+8. Tentar implementar transições suaves entre uma cena e outra.
+9. Ao interagir com a cama perguntar se o jogador, quer dormir, se sim criar tansição de tela lenta fechando e abrindo.                                 
