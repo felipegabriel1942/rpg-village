@@ -300,7 +300,7 @@ z_index = 1
 position = Vector2(-17, 52)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -1

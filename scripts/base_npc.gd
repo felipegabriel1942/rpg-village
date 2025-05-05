@@ -18,8 +18,6 @@ func _ready():
 	area_2d.body_exited.connect(_on_front_sensor_body_exited)
 	
 func _process(delta):
-	z_index = int(global_position.y)
-	
 	_move(delta)
 	
 	var movement = global_position - last_position

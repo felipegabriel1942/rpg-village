@@ -33,11 +33,17 @@ animations = [{
 }]
 
 [node name="BaseNPC" type="PathFollow2D"]
+z_index = 1
+y_sort_enabled = true
 script = ExtResource("1_15760")
 
 [node name="Area2D" type="Area2D" parent="."]
+z_index = 1
+y_sort_enabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+z_index = 1
+y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_4cvkv")
 animation = &"idle"
 
