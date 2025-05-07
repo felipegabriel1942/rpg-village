@@ -7,17 +7,25 @@ extends PathFollow2D
 @onready var area_2d = $Area2D
 
 var direction := 1
-var is_waiting := false
+var is_waiting = false
 var last_position := Vector2.ZERO
-var is_blocked := false
+var player_in_area = false
+var is_chatting = false
+var is_roaming = true
+var is_quest_accepeted = false
 
 func _ready():
 	rotates = false
 	loop = false
 	area_2d.body_entered.connect(_on_front_sensor_body_entered)
 	area_2d.body_exited.connect(_on_front_sensor_body_exited)
-	
+	Dialogic.signal_event.connect(_on_dialogic_event)
+
 func _process(delta):
+	if player_in_area:
+		if Input.is_action_pressed("speak"):
+			_run_dialogue("villagerHello")	
+	
 	_move(delta)
 	
 	var movement = global_position - last_position
@@ -27,12 +35,7 @@ func _process(delta):
 	last_position = global_position
 	
 func _move(delta):
-	
-	if is_blocked:
-		if Input.is_action_just_pressed("dialogic_default_action"):
-			_run_dialogue("villagerHello")	
-	
-	if (!is_waiting and !is_blocked):
+	if (!is_waiting and !player_in_area and !is_chatting):
 		progress += delta * speed * direction
 	
 		if progress_ratio == 1:
@@ -47,9 +50,24 @@ func _move(delta):
 			direction = 1
 
 func _run_dialogue(dialogue):
-	print("estou dialogando")
-	Dialogic.start(dialogue)
-	print("terminei o dialogo")
+	if !is_chatting:
+		is_chatting = true
+		is_roaming = false
+		
+		Dialogic.start(dialogue)
+
+func _on_dialogic_event(argument: String): 
+	
+	if argument.begins_with("start_quest_"):
+		var quest_id = argument.replace("start_quest_", "")
+		
+		QuestManager.add_quest(quest_id, {})
+		
+	
+	await get_tree().create_timer(1).timeout
+	
+	is_chatting = false
+	is_roaming = true
 
 func _update_animation(movement: Vector2):
 	var x = round_to_zero(movement.x)
@@ -84,9 +102,9 @@ func round_to_zero(value: float, epsilon: float = 0.05) -> float:
 func _on_front_sensor_body_entered(body):
 	if body.name == "Player":
 		print("entrou")
-		is_blocked = true
+		player_in_area = true
 
 func _on_front_sensor_body_exited(body):
 	if body.name == "Player":
 		print("saiu")
-		is_blocked = false
+		player_in_area = false

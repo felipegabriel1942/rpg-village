@@ -1,1 +1,12 @@
-Villager_01: Bem Vindo a vila do RPG!
+if {quest_find_joaquin_cat_accepted} == false:
+	Villager_01: O meu gato fugiu, pode me ajudar a procura-lo?
+	- Sim, claro!
+		Villager_01: Muito obrigado, meu jovem. O nome dele é Lucero.
+		[signal arg="start_quest_find_joaquin_cat"]
+		set {quest_find_joaquin_cat_accepted} = true
+	- Não, estou muito ocupado...
+		Villager_01: Ok, vou pedir a outra pessoa...
+		[signal]
+else:
+	Villager_01: Por favor, encontre o meu Lucero.
+	[signal]

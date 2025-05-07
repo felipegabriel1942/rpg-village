@@ -18,6 +18,7 @@ config/icon="res://assets/images/icon.svg"
 [autoload]
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+QuestManager="*res://scripts/quest_manager.gd"
 
 [dialogic]
 
@@ -60,7 +61,9 @@ audio/channel_defaults={
 "volume": 0.0
 }
 }
-variables={}
+variables={
+"quest_find_joaquin_cat_accepted": false
+}
 layout/style_list=[]
 layout/default_style="Default"
 glossary/default_case_sensitive=true
