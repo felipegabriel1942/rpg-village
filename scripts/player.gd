@@ -6,21 +6,22 @@ class_name Player
 
 @onready var animated_sprite = $AnimatedSprite2D
 
-#func _process(delta):
-	#z_index = int(global_position.y)
+var is_chatting = false
 
 func _physics_process(delta):
+	is_chatting = Dialogic.VAR.is_chatting
+	
 	_move(delta)
 	
-func _move(delta):
-	var direction = _get_input_direction()
-	
-	_play_move_animation(direction)
-	
-	velocity = direction * speed
-
-	move_and_slide()
+func _move(delta):	
+	if !is_chatting:
+		var direction = _get_input_direction()
 		
+		_play_move_animation(direction)
+		
+		velocity = direction * speed
+
+		move_and_slide()
 
 func _play_move_animation(direction) -> void:
 	if direction == Vector2.UP:

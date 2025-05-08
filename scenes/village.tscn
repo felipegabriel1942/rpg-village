@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bieer6mdfe0k2"]
+[gd_scene load_steps=15 format=3 uid="uid://bieer6mdfe0k2"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_1dv2n"]
 [ext_resource type="PackedScene" uid="uid://csuhwhg8puiei" path="res://scenes/player.tscn" id="1_823xj"]
@@ -6,6 +6,21 @@
 [ext_resource type="Texture2D" uid="uid://b0a2pbeu5jkvt" path="res://assets/images/village_tileset.png" id="3_ylfyu"]
 [ext_resource type="Texture2D" uid="uid://poj71um24rtk" path="res://assets/images/buildings/player_house_001.png" id="6_ny0vr"]
 [ext_resource type="Texture2D" uid="uid://cel50ujgmcfn4" path="res://assets/images/buildings/weapon_shop_001.png" id="7_h4fnr"]
+
+[sub_resource type="Theme" id="Theme_wfwiy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qhgq6"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_maw5w"]
 texture = ExtResource("3_ylfyu")
@@ -512,9 +527,9 @@ sources/2 = SubResource("TileSetAtlasSource_maw5w")
 
 [sub_resource type="Curve2D" id="Curve2D_vey6o"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -58, -73, 0, 0, 0, 0, 165, -73, 0, 0, 0, 0, 204, -73, 0, 0, 0, 0, 266, -73, 0, 0, 0, 0, 298, -73, 0, 0, 0, 0, 348, -73)
+"points": PackedVector2Array(0, 0, 0, 0, -58, -73, 0, 0, 0, 0, 106.491, -71.9977, 0, 0, 0, 0, 165, -73, 0, 0, 0, 0, 204, -73, 0, 0, 0, 0, 266, -73, 0, 0, 0, 0, 298, -73, 0, 0, 0, 0, 348, -73)
 }
-point_count = 6
+point_count = 7
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e3ao3"]
 
@@ -529,6 +544,41 @@ y_sort_enabled = true
 script = ExtResource("1_1dv2n")
 exit = NodePath("Buildings/PlayerHouse/Door")
 next_level = "res://scenes/player_house.tscn"
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="HintPanel" type="Panel" parent="UILayer"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -72.0
+offset_right = 40.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 6
+size_flags_vertical = 10
+theme = SubResource("Theme_wfwiy")
+theme_override_styles/panel = SubResource("StyleBoxFlat_qhgq6")
+
+[node name="TalkLabel" type="Label" parent="UILayer/HintPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -12.5
+offset_right = 55.0
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "[Espaço] Falar"
 
 [node name="Player" parent="." instance=ExtResource("1_823xj")]
 z_index = 2
@@ -569,6 +619,7 @@ curve = SubResource("Curve2D_vey6o")
 
 [node name="NpcVillager1" parent="NPCs/Path2D" instance=ExtResource("1_hjjvn")]
 position = Vector2(-58, -73)
+rotation = 0.00609325
 
 [node name="Buildings" type="Node2D" parent="."]
 z_index = 1
@@ -605,3 +656,5 @@ texture = ExtResource("7_h4fnr")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Buildings/WeaponShop"]
 position = Vector2(0, 19)
 shape = SubResource("RectangleShape2D_ov5j0")
+
+[connection signal="on_player_colliding" from="NPCs/Path2D/NpcVillager1" to="." method="_on_npc_player_colliding"]

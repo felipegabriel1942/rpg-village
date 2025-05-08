@@ -1,3 +1,4 @@
+set {is_chatting} = true
 if {quest_find_joaquin_cat_accepted} == false:
 	Villager_01: O meu gato fugiu, pode me ajudar a procura-lo?
 	- Sim, claro!
@@ -10,3 +11,4 @@ if {quest_find_joaquin_cat_accepted} == false:
 else:
 	Villager_01: Por favor, encontre o meu Lucero.
 	[signal]
+set {is_chatting} = false

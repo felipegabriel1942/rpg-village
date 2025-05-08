@@ -62,6 +62,7 @@ audio/channel_defaults={
 }
 }
 variables={
+"is_chatting": false,
 "quest_find_joaquin_cat_accepted": false
 }
 layout/style_list=[]
