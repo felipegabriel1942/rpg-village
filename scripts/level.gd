@@ -10,7 +10,7 @@ func _ready():
 	exit.body_entered.connect(_on_player_enter)
 
 func _process(delta):
-	print(Dialogic.VAR.quest_find_joaquin_cat_accepted)
+	pass
 
 func _on_player_enter(body) -> void:
 	if body is Player:

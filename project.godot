@@ -23,9 +23,11 @@ QuestManager="*res://scripts/quest_manager.gd"
 [dialogic]
 
 directories/dch_directory={
-"Villager_01": "res://Dialogic/characters/Villager_01.dch"
+"Villager_01": "res://Dialogic/characters/Villager_01.dch",
+"luceroTheCat": "res://Dialogic/timelines/luceroTheCat.dch"
 }
 directories/dtl_directory={
+"luceroTheCat": "res://Dialogic/timelines/luceroTheCat.dtl",
 "villagerHello": "res://Dialogic/timelines/villagerHello.dtl"
 }
 extensions_folder="res://addons/dialogic_additions"
@@ -63,7 +65,8 @@ audio/channel_defaults={
 }
 variables={
 "is_chatting": false,
-"quest_find_joaquin_cat_accepted": false
+"lucero_found": false,
+"quest_find_lucero_the_cat_accepted": false
 }
 layout/style_list=[]
 layout/default_style="Default"
@@ -114,6 +117,8 @@ speak={
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Environment"
+2d_physics/layer_3="Collectables"
+2d_physics/layer_4="Interactables"
 
 [rendering]
 

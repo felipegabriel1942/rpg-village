@@ -1,13 +1,16 @@
 set {is_chatting} = true
-if {quest_find_joaquin_cat_accepted} == false:
+if {quest_find_lucero_the_cat_accepted} == false:
 	Villager_01: O meu gato fugiu, pode me ajudar a procura-lo?
 	- Sim, claro!
 		Villager_01: Muito obrigado, meu jovem. O nome dele é Lucero.
-		[signal arg="start_quest_find_joaquin_cat"]
-		set {quest_find_joaquin_cat_accepted} = true
+		set {quest_find_lucero_the_cat_accepted} = true
+		[signal arg="start_quest_find_lucero_the_cat_accepted"]
 	- Não, estou muito ocupado...
 		Villager_01: Ok, vou pedir a outra pessoa...
 		[signal]
+elif {quest_find_lucero_the_cat_accepted} == true && {lucero_found} == true:
+	Villager_01: Você encontrou meu gato, muito obrigado!
+	[signal arg="completed_quest_find_lucero_the_cat"]
 else:
 	Villager_01: Por favor, encontre o meu Lucero.
 	[signal]

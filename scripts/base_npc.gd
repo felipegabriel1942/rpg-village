@@ -60,11 +60,13 @@ func _run_dialogue(dialogue):
 		Dialogic.start(dialogue)
 
 func _on_dialogic_event(argument: String): 
-	
 	if argument.begins_with("start_quest_"):
 		var quest_id = argument.replace("start_quest_", "")
 		
 		QuestManager.add_quest(quest_id, {})
+	
+	elif argument.begins_with("completed_quest_"):
+		print("Quest Completada!!!")
 		
 	await get_tree().create_timer(0.5).timeout
 	

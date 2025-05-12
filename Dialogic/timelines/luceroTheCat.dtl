@@ -1,0 +1,7 @@
+join luceroTheCat right
+if {quest_find_lucero_the_cat_accepted} == true:
+	luceroTheCat: Meow!!
+	Você encontrou o gato Lucero!
+	set {lucero_found} = true
+else:
+	luceroTheCat: Meow!!
