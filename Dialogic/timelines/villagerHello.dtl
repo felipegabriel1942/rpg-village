@@ -8,9 +8,14 @@ if {quest_find_lucero_the_cat_accepted} == false:
 	- Não, estou muito ocupado...
 		Villager_01: Ok, vou pedir a outra pessoa...
 		[signal]
-elif {quest_find_lucero_the_cat_accepted} == true && {lucero_found} == true:
-	Villager_01: Você encontrou meu gato, muito obrigado!
+elif {quest_find_lucero_the_cat_accepted} == true && {lucero_found} == true && {quest_find_lucero_the_cat_completed} == false:
+	Villager_01: Lucero, você voltou!
+	Villager_01: Muito obrigado, por encontra-lo!
+	set {quest_find_lucero_the_cat_completed} = true
 	[signal arg="completed_quest_find_lucero_the_cat"]
+elif {quest_find_lucero_the_cat_completed} == true:
+	Villager_01: Vou ficar de olho para que o Lucero não fuja mais!
+	[signal]
 else:
 	Villager_01: Por favor, encontre o meu Lucero.
 	[signal]

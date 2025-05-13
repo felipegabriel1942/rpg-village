@@ -296,7 +296,6 @@ exit = NodePath("Furniture/Carpet")
 next_level = "res://scenes/village.tscn"
 
 [node name="Player" parent="." instance=ExtResource("1_upt8k")]
-z_index = 1
 position = Vector2(-17, 52)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

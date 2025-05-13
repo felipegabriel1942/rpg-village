@@ -1,7 +1,12 @@
-join luceroTheCat right
-if {quest_find_lucero_the_cat_accepted} == true:
+join luceroTheCat left
+if {quest_find_lucero_the_cat_accepted} == true && {quest_find_lucero_the_cat_completed} == false:
 	luceroTheCat: Meow!!
 	Você encontrou o gato Lucero!
 	set {lucero_found} = true
+	[signal arg="lucero_the_cat_picked"]
+elif {quest_find_lucero_the_cat_completed} == true:
+	luceroTheCat: Meow!!
+	[signal]
 else:
 	luceroTheCat: Meow!!
+	[signal]

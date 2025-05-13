@@ -22,6 +22,8 @@ func _move(delta):
 		velocity = direction * speed
 
 		move_and_slide()
+	else:
+		_play_move_animation(Vector2.ZERO)
 
 func _play_move_animation(direction) -> void:
 	if direction == Vector2.UP:
@@ -35,7 +37,7 @@ func _play_move_animation(direction) -> void:
 		animated_sprite.flip_h = false
 		animated_sprite.play("side_walk")
 	else:
-		animated_sprite.play("idle")
+		animated_sprite.frame = 1
 
 func _get_input_direction() -> Vector2:
 	var direction = Vector2.ZERO

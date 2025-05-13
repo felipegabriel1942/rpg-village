@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://ydkt4pggvm5f"]
+[gd_scene load_steps=8 format=3 uid="uid://ydkt4pggvm5f"]
 
 [ext_resource type="Script" path="res://scripts/base_npc.gd" id="1_15760"]
 [ext_resource type="Texture2D" uid="uid://b3uhdh0d1dilc" path="res://assets/images/person-template.png" id="2_kuafr"]
+[ext_resource type="Texture2D" uid="uid://bxrfmq6pb5l63" path="res://assets/images/character_shadow_002.png" id="3_n1xyr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1r5dn"]
 atlas = ExtResource("2_kuafr")
@@ -33,18 +34,30 @@ animations = [{
 }]
 
 [node name="BaseNPC" type="PathFollow2D"]
-z_index = 1
+z_index = 2
+z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_15760")
 
-[node name="Area2D" type="Area2D" parent="."]
-z_index = 1
+[node name="NPC" type="CharacterBody2D" parent="."]
+z_index = 2
+z_as_relative = false
 y_sort_enabled = true
+collision_layer = 16
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
-z_index = 1
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPC"]
+z_index = 2
+z_as_relative = false
 y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_4cvkv")
 animation = &"idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC"]
+
+[node name="Shadow" type="Sprite2D" parent="NPC"]
+position = Vector2(0, 9)
+texture = ExtResource("3_n1xyr")
+
+[node name="InteractableArea" type="Area2D" parent="NPC"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC/InteractableArea"]

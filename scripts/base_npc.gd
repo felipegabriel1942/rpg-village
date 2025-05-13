@@ -5,22 +5,21 @@ signal on_player_colliding(is_colliding)
 @export var speed := 40
 @export var wait_time := 2.0
 
-@onready var sprite = $Area2D/AnimatedSprite2D
-@onready var area_2d = $Area2D
+@onready var sprite = $NPC/AnimatedSprite2D
+@onready var interactable_area = $NPC/InteractableArea
 
 var direction := 1
 var is_waiting = false
 var last_position := Vector2.ZERO
 var player_in_area = false
 var is_chatting = false
-var is_roaming = true
 var is_quest_accepted = false
 
 func _ready():
 	rotates = false
 	loop = false
-	area_2d.body_entered.connect(_on_front_sensor_body_entered)
-	area_2d.body_exited.connect(_on_front_sensor_body_exited)
+	interactable_area.body_entered.connect(_on_front_sensor_body_entered)
+	interactable_area.body_exited.connect(_on_front_sensor_body_exited)
 	Dialogic.signal_event.connect(_on_dialogic_event)
 
 func _process(delta):
@@ -54,10 +53,26 @@ func _move(delta):
 func _run_dialogue(dialogue):
 	if !is_chatting:
 		is_chatting = true
-		is_roaming = false
 		on_player_colliding.emit(false)
 		
+		_look_at_player()
+		
 		Dialogic.start(dialogue)
+		
+func _look_at_player():
+	var player = get_tree().get_nodes_in_group("Player")[0]
+	var direction = player.global_position - global_position
+
+	if abs(direction.x) > abs(direction.y):
+		play_animation("side_walk")
+		sprite.flip_h = direction.x < 0
+	else:
+		if direction.y > 0:
+			play_animation("front_walk")
+		else:
+			play_animation("back_walk")
+	
+	sprite.frame = 1
 
 func _on_dialogic_event(argument: String): 
 	if argument.begins_with("start_quest_"):
@@ -68,11 +83,12 @@ func _on_dialogic_event(argument: String):
 	elif argument.begins_with("completed_quest_"):
 		print("Quest Completada!!!")
 		
+	on_player_colliding.emit(true)
+		
 	await get_tree().create_timer(0.5).timeout
 	
 	is_chatting = false
-	is_roaming = true
-	on_player_colliding.emit(true)
+	
 
 func _update_animation(movement: Vector2):
 	var x = round_to_zero(movement.x)
@@ -93,7 +109,7 @@ func _update_animation(movement: Vector2):
 		play_animation("back_walk")
 		
 	elif (x == 0 && y == 0):
-		play_animation("idle")
+		sprite.frame = 1
 
 func play_animation(name: String):
 	if sprite.animation != name:

@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://i3b3ohp1ht8v"]
+
+[ext_resource type="Script" path="res://scripts/collectable.gd" id="1_f6nvf"]
+[ext_resource type="Texture2D" uid="uid://l2y6h6e7y41i" path="res://assets/images/cat_001.png" id="2_uvs0a"]
+[ext_resource type="Texture2D" uid="uid://bxrfmq6pb5l63" path="res://assets/images/character_shadow_002.png" id="3_p6qu8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e3tpt"]
+size = Vector2(11, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gevio"]
+size = Vector2(24, 23)
+
+[node name="LuceroTheCat" type="CharacterBody2D"]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-163, 14)
+collision_layer = 4
+script = ExtResource("1_f6nvf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+texture = ExtResource("2_uvs0a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 2
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(1, 8.5)
+shape = SubResource("RectangleShape2D_e3tpt")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(0, 5)
+texture = ExtResource("3_p6qu8")
+
+[node name="InteractableArea" type="Area2D" parent="."]
+position = Vector2(163, -24)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+position = Vector2(-163, 26.5)
+shape = SubResource("RectangleShape2D_gevio")
+
+[connection signal="body_entered" from="InteractableArea" to="." method="_on_interactable_area_body_entered"]
+[connection signal="body_exited" from="InteractableArea" to="." method="_on_interactable_area_body_exited"]
